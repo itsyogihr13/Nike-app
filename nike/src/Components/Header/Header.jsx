@@ -1,12 +1,41 @@
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 export const Header = () => {
+  const data = [
+    {
+      field: `Save Up to 40% Shop`,
+      desc: ` All Our New Markdowns`,
+    },
+    {
+      field: `Hello Nike App`,
+      desc: `Download the app to access everything Nike. Get Your Great`,
+    },
+    {
+      field: `Free Delivery`,
+      desc: `Applies to orders of ₹ 14 000.00 or more. View details`,
+    },
+  ];
+
   const [searchVal, setSearchVal] = useState("");
   const [loading, setLoading] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
     searchVal.length > 2 ? setLoading(true) : <></>;
   }, [searchVal]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === data.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 2000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   if (loading) {
     setTimeout(() => {
@@ -22,6 +51,7 @@ export const Header = () => {
       </div>
     );
   }
+
   return (
     <>
       <div className="flex w-full items-center justify-between px-6  bg-primarybg">
@@ -55,7 +85,9 @@ export const Header = () => {
           }
         >
           <li>New & Featured</li>
-          <li> Men</li>
+          <Link to="/Men">
+            <li>Men</li>
+          </Link>
           <li> Women</li>
           <li> Kids</li>
           <li> Sale</li>
@@ -87,6 +119,12 @@ export const Header = () => {
             </>
           )}
         </div>
+      </div>
+      <div className="w-full bg-primarybg h-[50px] mt-3">
+        <h1>{data[currentIndex].field}</h1>
+        <u>
+          <p className="text-[12px]">{data[currentIndex].desc}</p>
+        </u>
       </div>
     </>
   );

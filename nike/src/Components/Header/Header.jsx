@@ -46,12 +46,10 @@ export const Header = () => {
         <img
           src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXdyazUyMWRranp5aDBncG16YW5qZm94MmlqZzg3bHVuYmtjbWV6ciZjdD1z/LNkvjiNPL7XyoR2I4F/giphy.gif"
           alt=""
-          srcset=""
         />
       </div>
     );
   }
-
   return (
     <>
       <div className="flex w-full items-center justify-between px-6  bg-primarybg">
@@ -84,14 +82,34 @@ export const Header = () => {
               : "header-component visible w-[40%] flex justify-around items-center pt-2"
           }
         >
-          <li>New & Featured</li>
+          <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
+            New & Featured
+          </li>
           <Link to="/Men">
-            <li>Men</li>
+            <li
+              onClick={() => setLoading(true)}
+              className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer"
+            >
+              Men
+            </li>
           </Link>
-          <li> Women</li>
-          <li> Kids</li>
-          <li> Sale</li>
-          <li> SNKRS</li>
+          <Link to="/Men">
+            <li
+              onClick={() => setLoading(true)}
+              className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer"
+            >
+              Women
+            </li>
+          </Link>
+          <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
+            Kids
+          </li>
+          <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
+            Sale
+          </li>
+          <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
+            SNKRS
+          </li>
         </div>
         <div
           className={

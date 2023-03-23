@@ -25,6 +25,3 @@ code {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.header-component > li {
-  @apply list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer;
-}

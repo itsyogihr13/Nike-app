@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import { Header } from "../Header";
 import { VideoCard } from "../VideoCard";
 import "react-multi-carousel/lib/styles.css";
-import axios from "axios";
 export const Landing = () => {
-  const [data, setData] = useState();
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -24,13 +21,6 @@ export const Landing = () => {
     },
   };
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/shoes?_limit=5")
-      .then((res) => setData(res.data));
-    console.log(data);
-  }, []);
-  console.log(data);
   const mapData = [
     {
       img: "https://image.goat.com/375/attachments/product_template_pictures/images/011/119/994/original/218099_00.png.png",

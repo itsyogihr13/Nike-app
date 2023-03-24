@@ -2,6 +2,8 @@ import Carousel from "react-multi-carousel";
 import { Header } from "../Header";
 import { VideoCard } from "../VideoCard";
 import "react-multi-carousel/lib/styles.css";
+import { Link } from "react-router-dom";
+import { mapData } from "../../MensSection.jsx/CarouselData";
 export const Landing = () => {
   const responsive = {
     desktop: {
@@ -21,78 +23,30 @@ export const Landing = () => {
     },
   };
 
-  const mapData = [
-    {
-      img: "https://image.goat.com/375/attachments/product_template_pictures/images/011/119/994/original/218099_00.png.png",
-      brand_name: "Nike Air Max 90 LTR",
-      price: "6,456",
-      priority: "Young Kids Shoes",
-    },
-    {
-      img: "https://image.goat.com/375/attachments/product_template_pictures/images/020/806/444/original/507844_00.png.png",
-      brand_name: "Nike Air Max SYSTM",
-      price: "6,480",
-      priority: "Older Kids Shoes",
-    },
-    {
-      img: "https://image.goat.com/375/attachments/product_template_pictures/images/008/654/900/original/52015_00.png.png",
-      brand_name: "Nike Air Max 90 SE",
-      price: "12,789",
-      priority: "Mens Shoes",
-    },
-    {
-      img: "https://image.goat.com/375/attachments/product_template_pictures/images/008/870/353/original/235806_00.png.png",
-      brand_name: "Nike Air Flynit Racer",
-      price: "16,480",
-      priority: "Women Shoes",
-    },
-
-    {
-      img: "https://image.goat.com/375/attachments/product_template_pictures/images/021/545/481/original/509480_00.png.png",
-      brand_name: "Nike Air Max 97 SE",
-      price: "16,900",
-      priority: "Mens Shoes",
-    },
-    {
-      img: "https://image.goat.com/375/attachments/product_template_pictures/images/010/223/048/original/13607_00.png.png",
-      brand_name: "Nike Air SC",
-      price: "10,480",
-      priority: "Women Shoes",
-    },
-    {
-      img: "https://image.goat.com/375/attachments/product_template_pictures/images/020/806/444/original/507844_00.png.png",
-      brand_name: "Nike Air Max SYSTM",
-      price: "6,480",
-      priority: "Older Kids Shoes",
-    },
-    {
-      img: "https://image.goat.com/375/attachments/product_template_pictures/images/008/654/900/original/52015_00.png.png",
-      brand_name: "Nike Air Max 90 SE",
-      price: "12,789",
-      priority: "Mens Shoes",
-    },
-  ];
   return (
     <>
       <Header />
       <VideoCard />
       <div className="px-8 pt-12">
         <h1 className="text-[30px] font-bold text-left">Best of Air Max</h1>
-        <Carousel responsive={responsive} transitionDuration={1000}>
+        <Carousel responsive={responsive} transitionDuration={100}>
           {mapData?.map((el) => {
             return (
-              <div className="ExploreDiv">
-                <img
-                  className="ExploreDivImg bg-primarybg w-[95%]"
-                  src={el.img}
-                  alt=""
-                />
-                <div className="flex justify-between w-[90%] mt-2">
-                  <h1 className="font-medium">{el.brand_name}</h1>
-                  <h1 className="font-medium">{el.price}</h1>
+              <Link to="/Men/shoe">
+                {" "}
+                <div className="ExploreDiv">
+                  <img
+                    className="ExploreDivImg bg-primarybg w-[95%]"
+                    src={el.img}
+                    alt=""
+                  />
+                  <div className="flex justify-between w-[90%] mt-2">
+                    <h1 className="font-medium">{el.brand_name}</h1>
+                    <h1 className="font-medium">{el.price}</h1>
+                  </div>
+                  <p className="text-left text-[14px]">{el.priority}</p>
                 </div>
-                <p className="text-left text-[14px]">{el.priority}</p>
-              </div>
+              </Link>
             );
           })}
         </Carousel>
@@ -109,9 +63,11 @@ export const Landing = () => {
           <h1 className="font-medium mt-2">
             Couse everyone know the feeling of running in that perfect pair
           </h1>
-          <button className="primaryblk-button mt-6 rounded-[10%]">
-            Find your Shoe
-          </button>
+          <Link to="/Men/shoe">
+            <button className="primaryblk-button mt-6 rounded-[10%]">
+              Find your Shoe
+            </button>
+          </Link>
         </div>
         <h1 className="text-[30px] font-bold text-left mt-8 mb-6">
           Don't Miss
@@ -130,9 +86,11 @@ export const Landing = () => {
               Your build-to-last, all week wears--but with style only Jordon
               Brand can deliver
             </h1>
-            <button className="primaryblk-button mt-6 rounded-[10%]">
-              Shop
-            </button>
+            <Link to="/Men">
+              <button className="primaryblk-button mt-6 rounded-[10%]">
+                Shop
+              </button>
+            </Link>
           </div>
         </div>
         <h1 className="text-[30px] font-bold text-left mt-8 mb-6">

@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import video from "./demo.mp4";
+// import Snackbar from "@material-ui/core/Snackbar";
+// import MuiAlert from "@material-ui/lab/Alert";
 export const VideoCard = () => {
+  // function Alert(props) {
+  //   return <MuiAlert elevation={6} variant="filled" {...props} />;
+  // }
+
+  // function SuccessSnackbar() {
+  //   const [open, setOpen] = useState(false);
+
+  //   const handleClick = () => {
+  //     setOpen(true);
+  //   };
+
+  //   const handleClose = (event, reason) => {
+  //     if (reason === "clickaway") {
+  //       return;
+  //     }
+
+  //     setOpen(false);
+  //   };
+  // }
+
   return (
     <>
       <div>
@@ -17,6 +39,17 @@ export const VideoCard = () => {
         <button className="primaryblk-button mt-6 rounded-[60px]">
           Notify Me
         </button>
+        {/* <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          className="snackbar"
+        >
+          <Alert onClose={handleClose} severity="success">
+            Notification has been successfully sent!
+          </Alert>
+        </Snackbar> */}
       </div>
     </>
   );

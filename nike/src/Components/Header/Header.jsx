@@ -2,7 +2,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import Carousel from "react-multi-carousel";
+import { mapData } from "../MensSection.jsx/CarouselData";
 export const Header = () => {
   const data = [
     {
@@ -24,7 +25,7 @@ export const Header = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    searchVal.length > 2 ? setLoading(true) : <></>;
+    searchVal.length == 4 && setLoading(true);
   }, [searchVal]);
 
   useEffect(() => {
@@ -50,16 +51,35 @@ export const Header = () => {
       </div>
     );
   }
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 5,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 4,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
   return (
     <>
       <div className="flex w-full items-center justify-between px-6  bg-primarybg">
-        <div>
-          <img
-            className="w-[50px] h-[50px]"
-            src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/fambaubeufwpravdy1xs/sb-zoom-blazer-mid-skate-shoes-ZLRvRZ.png"
-            alt="logo"
-          />
-        </div>
+        <Link to="/">
+          <div>
+            <img
+              className="w-[50px] h-[50px]"
+              src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/fambaubeufwpravdy1xs/sb-zoom-blazer-mid-skate-shoes-ZLRvRZ.png"
+              alt="logo"
+            />
+          </div>
+        </Link>
         <div className="flex justify-around w-[16%]">
           <li className="list-none text-[12px]">Find Store </li>
           <li className="list-none text-[12px]">Join Us </li>
@@ -68,13 +88,15 @@ export const Header = () => {
         </div>
       </div>
       <div className="visible flex w-full justify-between items-center px-6">
-        <div className="w-[18%]">
-          <img
-            className="w-[50px] h-[50px]"
-            src="https://masterbundles.com/wp-content/uploads/2022/03/1-nike-logo-design-%E2%80%93-history-meaning-and-evolution.png"
-            alt="logo"
-          />
-        </div>
+        <Link to="/">
+          <div className="w-[15%]">
+            <img
+              className="w-[250px] h-[50px]"
+              src="https://freelogocreator.com/img/landingpage/one-4.png"
+              alt="logo"
+            />
+          </div>
+        </Link>
         <div
           className={
             searchVal.length > 1
@@ -123,7 +145,7 @@ export const Header = () => {
             onChange={(e) => setSearchVal(e.target.value)}
             type="search"
             name="search"
-            placeholder="Search..."
+            placeholder="Search Nike. . ."
             className={
               searchVal.length > 1
                 ? "border text-[14px] w-[500px] bg-primarybg rounded-[30px] px-4 py-2  mt-3 focus:outline-none focus:ring-2 focus:ring-primarybg focus:border-transparent"
@@ -138,6 +160,40 @@ export const Header = () => {
           )}
         </div>
       </div>
+      {searchVal.length > 3 && (
+        <div className="bg-[#fff] w-full h-[300px] mt-[1.5rem]">
+          <Carousel responsive={responsive} transitionDuration={100}>
+            {mapData
+              ?.filter((el) =>
+                el.brand_name.toLowerCase().includes(searchVal.toLowerCase())
+              )
+              .map((el) => {
+                return (
+                  <Link to="/Men/shoe">
+                    <div className="ExploreDiv px-6">
+                      <img
+                        className="ExploreDivImg bg-primarybg w-[95%]"
+                        src={el.img}
+                      />
+                      <div className="flex justify-between w-[90%] mt-2">
+                        <h1 className="font-medium">{el.brand_name}</h1>
+                        <h1 className="font-medium">{el.price}</h1>
+                      </div>
+                      <p className="text-left text-[10px]">{el.priority}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+            {mapData?.filter((el) =>
+              el.brand_name.toLowerCase().includes(searchVal.toLowerCase())
+            ).length === 0 && (
+              <div className="ExploreDiv">
+                <p className="text-center">No results found.</p>
+              </div>
+            )}
+          </Carousel>
+        </div>
+      )}
       <div className="w-full bg-primarybg h-[50px] mt-3">
         <h1>{data[currentIndex].field}</h1>
         <u>

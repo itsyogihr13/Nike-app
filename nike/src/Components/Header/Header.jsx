@@ -4,7 +4,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import { mapData } from "../MensSection.jsx/CarouselData";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
 export const Header = () => {
+  const [open, setOpen] = useState(false);
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
   const data = [
     {
       field: `Save Up to 40% Shop`,
@@ -43,12 +51,14 @@ export const Header = () => {
       setLoading(false);
     }, 2000);
     return (
-      <div className="loader">
-        <img
-          src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXdyazUyMWRranp5aDBncG16YW5qZm94MmlqZzg3bHVuYmtjbWV6ciZjdD1z/LNkvjiNPL7XyoR2I4F/giphy.gif"
-          alt=""
-        />
-      </div>
+      <>
+        <div className="loader">
+          <img
+            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXdyazUyMWRranp5aDBncG16YW5qZm94MmlqZzg3bHVuYmtjbWV6ciZjdD1z/LNkvjiNPL7XyoR2I4F/giphy.gif"
+            alt=""
+          />
+        </div>
+      </>
     );
   }
   const responsive = {
@@ -87,7 +97,7 @@ export const Header = () => {
           <li className="list-none text-[12px]">Sign In </li>
         </div>
       </div>
-      <div className="visible flex w-full justify-between items-center px-6">
+      <div className="visible ease-in duration-300 relative flex w-full justify-between items-center px-6">
         <Link to="/">
           <div className="w-[15%]">
             <img
@@ -98,15 +108,15 @@ export const Header = () => {
           </div>
         </Link>
         <div
-          className={
-            searchVal.length > 1
-              ? "header-component hidden w-[40%] flex justify-around items-center pt-2"
-              : "header-component visible w-[40%] flex justify-around items-center pt-2"
-          }
+          className={` ${
+            searchVal.length > 1 ? "hidden" : "visible"
+          } header-component w-[40%] flex justify-around items-center pt-2`}
         >
-          <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
-            New & Featured
-          </li>
+          <Link to="/Men">
+            <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
+              New & Featured
+            </li>
+          </Link>
           <Link to="/Men">
             <li
               onClick={() => setLoading(true)}
@@ -116,27 +126,42 @@ export const Header = () => {
             </li>
           </Link>
           <Link to="/Men">
-            <li
-              onClick={() => setLoading(true)}
-              className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer"
-            >
+            <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
               Women
             </li>
           </Link>
-          <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
-            Kids
-          </li>
-          <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
+          <Link to="/Men">
+            <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
+              Kids
+            </li>
+          </Link>
+          <li
+            onClick={() => setOpen(true)}
+            className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer"
+          >
             Sale
           </li>
-          <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
+          <li
+            onClick={() => setOpen(true)}
+            className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer"
+          >
             SNKRS
           </li>
+          <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={() => setOpen(false)}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          >
+            <Alert onClose={() => setOpen(false)} severity="info">
+              Module will update Shortly
+            </Alert>
+          </Snackbar>
         </div>
         <div
           className={
             searchVal.length > 1
-              ? "items-center w-[65%] flex justify-between"
+              ? "items-center w-[65%] flex justify-between transition delay-300 duration-300 ease-in-out"
               : "items-center w-[20%] flex justify-between"
           }
         >
@@ -152,16 +177,29 @@ export const Header = () => {
                 : "border text-[14px]  bg-primarybg rounded-[30px] px-4 py-2 w-[200px] mt-3 focus:outline-none focus:ring-2 focus:ring-primarybg focus:border-transparent"
             }
           />
-          {!searchVal.length && (
+          {!searchVal.length ? (
             <>
-              <FavoriteBorderIcon />
-              <WorkOutlineIcon />
+              <Link to="/fav">
+                <FavoriteBorderIcon />
+              </Link>
+              <Link to="/cart">
+                <WorkOutlineIcon />
+              </Link>
+            </>
+          ) : (
+            <>
+              <button
+                className="ease-in duration-300"
+                onClick={() => setSearchVal("")}
+              >
+                Cancel
+              </button>
             </>
           )}
         </div>
       </div>
       {searchVal.length > 3 && (
-        <div className="bg-[#fff] w-full h-[300px] mt-[1.5rem]">
+        <div className="bg-[#fff] w-full py-[1.5rem] absolute top-180 left-0 right-0 transition delay-300 duration-700 ease-in-out">
           <Carousel responsive={responsive} transitionDuration={100}>
             {mapData
               ?.filter((el) =>
@@ -186,11 +224,7 @@ export const Header = () => {
               })}
             {mapData?.filter((el) =>
               el.brand_name.toLowerCase().includes(searchVal.toLowerCase())
-            ).length === 0 && (
-              <div className="ExploreDiv">
-                <p className="text-center">No results found.</p>
-              </div>
-            )}
+            ).length === 0 && <p className="text-center">No results found.</p>}
           </Carousel>
         </div>
       )}

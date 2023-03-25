@@ -4,6 +4,7 @@ import { VideoCard } from "../VideoCard";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
 import { mapData } from "../../MensSection.jsx/CarouselData";
+
 export const Landing = () => {
   const responsive = {
     desktop: {
@@ -51,11 +52,13 @@ export const Landing = () => {
           })}
         </Carousel>
         <h1 className="text-[30px] font-bold text-left mt-8 mb-6">Featured</h1>
-        <img
-          src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_1423,c_limit/b5a680e2-c60c-47be-8766-900cd11cc8f4/nike-just-do-it.jpg"
-          alt=""
-          srcset=""
-        />
+        <Link to="/Men">
+          <img
+            src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_1423,c_limit/b5a680e2-c60c-47be-8766-900cd11cc8f4/nike-just-do-it.jpg"
+            alt=""
+            srcset=""
+          />
+        </Link>
         <div className="text-center w-[80%]  m-auto pt-[2rem]">
           <p className="font-black text-[65px] tracking-[1px] mt-3 ">
             STEP INTO WHAT FEELS GOOD
@@ -73,11 +76,13 @@ export const Landing = () => {
           Don't Miss
         </h1>
         <div className="w-full">
-          <img
-            src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_1423,c_limit/f26acfc4-0505-4c2d-ae46-f5696f4c7674/nike-just-do-it.jpg"
-            alt=""
-            srcset=""
-          />
+          <Link to="/Men">
+            <img
+              src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_1423,c_limit/f26acfc4-0505-4c2d-ae46-f5696f4c7674/nike-just-do-it.jpg"
+              alt=""
+              srcset=""
+            />
+          </Link>
           <div className="text-center w-[80%]  m-auto pt-[2rem]">
             <p className="font-black text-[65px] tracking-[1px] mt-3 ">
               FLIGHT ESSENTIALS
@@ -96,23 +101,25 @@ export const Landing = () => {
         <h1 className="text-[30px] font-bold text-left mt-8 mb-6">
           The Essentials
         </h1>
-        <div className="flex w-full justify-between">
-          <img
-            className="w-[32.8%]"
-            src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/h_540,c_limit/d94bfa7e-9357-406a-a124-1940712dfa0b/nike-just-do-it.png"
-            alt=""
-          />
-          <img
-            className="w-[32.8%]"
-            src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/h_540,c_limit/dc62b322-5c3f-4508-b21c-950683ed460f/nike-just-do-it.png"
-            alt=""
-          />
-          <img
-            className="w-[32.8%]"
-            src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/h_540,c_limit/58359474-a0de-4329-959c-55d1652d0912/nike-just-do-it.png"
-            alt=""
-          />
-        </div>
+        <Link to="/Men">
+          <div className="flex w-full justify-between">
+            <img
+              className="w-[32.8%]"
+              src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/h_540,c_limit/d94bfa7e-9357-406a-a124-1940712dfa0b/nike-just-do-it.png"
+              alt=""
+            />
+            <img
+              className="w-[32.8%]"
+              src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/h_540,c_limit/dc62b322-5c3f-4508-b21c-950683ed460f/nike-just-do-it.png"
+              alt=""
+            />
+            <img
+              className="w-[32.8%]"
+              src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/h_540,c_limit/58359474-a0de-4329-959c-55d1652d0912/nike-just-do-it.png"
+              alt=""
+            />
+          </div>
+        </Link>
       </div>
     </>
   );

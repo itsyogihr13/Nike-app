@@ -1,28 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import video from "./demo.mp4";
-// import Snackbar from "@material-ui/core/Snackbar";
-// import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { useState } from "react";
+
 export const VideoCard = () => {
-  // function Alert(props) {
-  //   return <MuiAlert elevation={6} variant="filled" {...props} />;
-  // }
+  const [open, setOpen] = useState(false);
 
-  // function SuccessSnackbar() {
-  //   const [open, setOpen] = useState(false);
-
-  //   const handleClick = () => {
-  //     setOpen(true);
-  //   };
-
-  //   const handleClose = (event, reason) => {
-  //     if (reason === "clickaway") {
-  //       return;
-  //     }
-
-  //     setOpen(false);
-  //   };
-  // }
-
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
   return (
     <>
       <div>
@@ -36,20 +23,22 @@ export const VideoCard = () => {
           point-loaded cushioning system is here to deliver even more comfort.
           Droping soon
         </h1>
-        <button className="primaryblk-button mt-6 rounded-[60px]">
+        <button
+          onClick={() => setOpen(true)}
+          className="primaryblk-button mt-6 rounded-[60px]"
+        >
           Notify Me
         </button>
-        {/* <Snackbar
+        <Snackbar
           open={open}
-          autoHideDuration={3000}
-          onClose={handleClose}
+          autoHideDuration={6000}
+          onClose={() => setOpen(false)}
           anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          className="snackbar"
         >
-          <Alert onClose={handleClose} severity="success">
-            Notification has been successfully sent!
+          <Alert onClose={() => setOpen(false)} severity="success">
+            Will notify you shortly !
           </Alert>
-        </Snackbar> */}
+        </Snackbar>
       </div>
     </>
   );

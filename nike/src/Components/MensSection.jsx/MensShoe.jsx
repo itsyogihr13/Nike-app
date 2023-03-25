@@ -14,6 +14,7 @@ export const MenShoe = () => {
   const [hide, setHide] = useState(false);
   const [sort, setSort] = useState("Newest");
   const [open, setOpen] = useState(false);
+  const [search, setsearch] = useState("");
   const [categoryVal, setCategoryVal] = useState("Men");
   const handleChange = (e) => {
     if (e.target.value === "Low") {
@@ -70,7 +71,6 @@ export const MenShoe = () => {
 
   return (
     <>
-      {" "}
       <Header />
       <div className="px-6">
         <div className="sticky top-[0px] w-full bg-[#fff] flex justify-between items-center">
@@ -206,7 +206,10 @@ export const MenShoe = () => {
               {data?.map((el) => (
                 <Link to={`/Singleprod/${el.id}`}>
                   <div>
-                    <img className=" bg-primarybg" src={el.grid_picture_url} />
+                    <img
+                      className=" bg-primarybg  flip-image"
+                      src={el.grid_picture_url}
+                    />
                     <h2 className="text-left text-[18px] font-medium mt-2">
                       {el.name}
                     </h2>

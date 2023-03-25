@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
 import { useParams } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import { Header } from "../Header/Header";
@@ -11,14 +10,22 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { mapData } from "./CarouselData";
+import { useDispatch } from "react-redux";
+import { AddProdToCart, AddToFav } from "../../redux/Action";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 export const SingleProd = () => {
-  const [data, setData] = useState("");
+  const [data, setData] = useState([]);
   const _id = useParams();
+  const dispatch = useDispatch();
   let id = parseInt(_id.id);
-  console.log("_id:", id);
+  const [open, setOpen] = useState(false);
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
   useEffect(() => {
     axios.get(`http://localhost:8080/shoes/${id}`).then((res) => {
-      console.log("all data", res.data);
       setData(res.data);
     });
   }, []);
@@ -75,21 +82,47 @@ export const SingleProd = () => {
             <p className="text-[#787d82] text-[16px]">
               incl of taxes <br /> (Also includes all applicable duties)
             </p>
-            <div className="flex justify-between w-full mt-4">
+            <div className="flex justify-between w-full my-4">
               <p className="text-[15px] font-medium">Select size</p>
               <p className="text-[15px] font-light">Select Guide</p>
             </div>
-            {/* <div className="grid grid-cols-4 gap-4">
-            {data?.map((el) => (
-              <p className="w-[100px] border border-primarybg p-4">
-                {el.size_range}
-              </p>
-            ))}
-          </div> */}
-            <button className="primaryblk-button mt-6 rounded-[10%] w-[90%] content-center">
+            <div className="grid grid-cols-4 gap-4">
+              {Array.isArray(data.size_range) &&
+                data.size_range
+                  ?.slice(0, 10)
+                  .map((el) => (
+                    <div className=" cursor-pointer w-[100px] border text-center border-primarybg p-2 hover:bg-primarybg">
+                      {el}
+                    </div>
+                  ))}
+            </div>
+
+            <button
+              onClick={() => {
+                dispatch(AddProdToCart(data));
+                setOpen(true);
+              }}
+              className="primaryblk-button mt-6 rounded-[10%] w-[90%] content-center"
+            >
               Add to Bag
             </button>
-            <button className="bg-[#fff] text-[#000000] text-center min-h-[20px] cursor-pointer px-4 py-2 font-normal text-[16px] mt-6 rounded-[12px] w-[90%] content-center border border-black">
+            <Snackbar
+              open={open}
+              autoHideDuration={6000}
+              onClose={() => setOpen(false)}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            >
+              <Alert onClose={() => setOpen(false)} severity="success">
+                Item Added Successfully !
+              </Alert>
+            </Snackbar>
+            <button
+              onClick={() => {
+                setOpen(true);
+                dispatch(AddToFav(data));
+              }}
+              className="bg-[#fff] text-[#000000] text-center min-h-[20px] cursor-pointer px-4 py-2 font-normal text-[16px] mt-6 rounded-[12px] w-[90%] content-center border border-black"
+            >
               Favourate
             </button>
             <div className="bg-primarybg p-6 text-left mt-8">
@@ -151,7 +184,7 @@ export const SingleProd = () => {
           </h1>
           <img
             className="mt-[3rem]"
-            src="https://static.nike.com/a/images/t_prod/w_1920,c_limit,f_auto,q_auto/3a36ede4-7e68-49d4-8b28-5c4bf2809b82/image.jpg"
+            src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_1423,c_limit/ba743504-5a47-493e-a34b-e4a0b1981ec7/nike-just-do-it.jpg"
             alt=""
             srcset=""
           />
@@ -179,7 +212,6 @@ export const SingleProd = () => {
                     <img
                       className="ExploreDivImg bg-primarybg w-[95%]"
                       src={el.img}
-                      alt=""
                     />
                     <div className="flex justify-between w-[90%] mt-2">
                       <h1 className="font-medium">{el.brand_name}</h1>

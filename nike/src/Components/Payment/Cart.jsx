@@ -6,56 +6,86 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import { useState } from "react";
-import { AddToFav, RemoveProdToCart } from "../../redux/Action";
+import { useEffect, useState } from "react";
+import { RemoveProdToCart, AddToFav } from "../../redux/Action";
 export const CartPage = () => {
   const [open, setOpen] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState(0);
-  const handleDecrement = (e) => {
-    const newQuantity = quantity - e;
-    if (newQuantity < 1) {
-      setQuantity(0);
-    } else {
-      setQuantity(newQuantity);
-    }
-  };
-  const handleIncrement = (e) => {
-    setQuantity(quantity + e);
-  };
-  let diliveryCharges = 700;
-  // let totalPrice = quantity
+  const [search, setSearch] = useState("");
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
   let arr = [];
   const dispatch = useDispatch();
   const cart = useSelector((store) => store.cart);
+  const [change, setChange] = useState(0);
+  const [tara, setTara] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  let diliveryCharges = totalPrice == 0 ? 0 : 700;
+
   arr.push(cart);
-  console.log(arr[0].length);
+  useEffect(() => {
+    if (arr[0].length !== 0) {
+      const newtara = arr[0].map((el) => ({
+        ...el.id,
+        quantity: 1,
+      }));
+      setTara(newtara);
+    }
+  }, []);
+
+  useEffect(() => {
+    const newPrice = tara.reduce((accumulator, item) => {
+      return accumulator + item.quantity * item.price_main;
+    }, 0);
+    setTotalPrice(newPrice);
+  }, [change]);
+
+  const handleIncrement = (itemId) => {
+    const newTara = tara.map((item) => {
+      if (item.id === itemId) {
+        return { ...item, quantity: item.quantity + 1 };
+      } else {
+        return item;
+      }
+    });
+    setTara(newTara);
+    setChange(change + 1);
+  };
+  const handleDecrement = (itemId) => {
+    const newTara = tara.map((item) => {
+      if (item.id === itemId) {
+        const newQuantity = item.quantity - 1;
+        return { ...item, quantity: newQuantity >= 0 ? newQuantity : 0 };
+      } else {
+        return item;
+      }
+    });
+    setTara(newTara);
+    setChange(change + 1);
+  };
   return (
     <div>
-      <Header />
+      <Header setSearch={setSearch} />
       <div className="py-6">
         <div className="flex justify-between m-auto w-[75%] mt-8">
           <div className="w-[60%]">
             <h3 className=" text-[25px] text-left font-medium mb-6 tracking-[2px]">
               Bag ({arr[0].length})
             </h3>
-            {arr[0]?.map((el) => (
+            {tara?.map((el) => (
               <div className="flex w-full mb-10">
-                <Link to={`/Singleprod/${el.id.id}`}>
+                <Link to={`/Singleprod/${el.id}`}>
                   <div className="img-div bg-primarybg p-4 ">
                     <img
                       className="h-[100px] w-[150px]"
-                      src={el?.id.grid_picture_url}
+                      src={el?.grid_picture_url}
                       alt="img"
                     />
                   </div>
                 </Link>
                 <div className="flex w-full pl-6 justify-between">
                   <div className="text-left">
-                    <h1 className="font-medium text-[18px]">{el?.id.name}</h1>
+                    <h1 className="font-medium text-[18px]">{el?.name}</h1>
                     <p className="text-[16px] text-[#787d82] mt-3 font-normal ">
                       Men's Shoes
                     </p>
@@ -64,7 +94,7 @@ export const CartPage = () => {
                     </p>
                     <div className="flex justify-between w-[50%]">
                       <p className="text-[16px] text-[#787d82]  font-normal ">
-                        Size 11
+                        Size {arr[0][0]?.size}
                       </p>
                       <p className="text-[16px] text-[#787d82]  font-normal ">
                         Quantity
@@ -73,9 +103,8 @@ export const CartPage = () => {
                     <div className="flex justify-between w-[25%] mt-4">
                       <FavoriteBorderIcon
                         onClick={() => {
+                          dispatch(AddToFav(el.id));
                           setOpen(true);
-                          // console.log(el.id);
-                          // dispatch(AddToFav(el.id.id));
                         }}
                       />
                       <Snackbar
@@ -96,20 +125,32 @@ export const CartPage = () => {
                       </Snackbar>
                       <DeleteOutlineIcon
                         onClick={() => {
-                          console.log(el.id.id);
-                          dispatch(RemoveProdToCart(el?.id.id));
+                          dispatch(RemoveProdToCart(el.id), setTara([]));
                         }}
                       />
                     </div>
                   </div>
-
                   <div className="text-right">
                     <p id="price" className="text-[16px] font-normal">
-                      {`MRP: ₹  ${el.id.price_main}.00`}
+                      {`MRP: ₹  ${el.price_main * el.quantity}.00`}
                     </p>
-                    <button onClick={() => handleDecrement(1)}>-</button>
-                    <button>{quantity}</button>
-                    <button onClick={() => handleIncrement(1)}>+</button>
+                    <div className="mt-[2.5rem] mr-[-10px]">
+                      <button
+                        className="bg-primarybg py-2 px-4 text-medium"
+                        onClick={() => handleDecrement(el.id)}
+                      >
+                        -
+                      </button>
+                      <button className="py-2 px-4 font-normal">
+                        {el.quantity}
+                      </button>
+                      <button
+                        className="bg-primarybg py-2 px-4 text-medium"
+                        onClick={() => handleIncrement(el.id)}
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -128,24 +169,25 @@ export const CartPage = () => {
                 Summary
               </h3>
               <div className="flex justify-between mt-6 w-full">
-                <p className="text-[16px]   font-normal ">Subtotal</p>
-                {arr[0]?.map((el) => (
-                  <p className="text-[16px] font-normal ">
-                    {`MRP: ₹  ${el.id.price_main}.00`}
-                  </p>
-                ))}
+                <p className="text-[16px] font-normal ">Subtotal</p>
+                <p className="text-[16px] font-medium ">MRP: ₹ {totalPrice}</p>
               </div>
               <div className="flex justify-between w-full mt-4">
                 <p className="text-[16px] text-left  font-normal ">
                   Estimated Dilivery & Handling
                 </p>
-                <p className="text-[16px]   font-normal ">MRP: ₹ 700</p>
+                <p className="text-[16px]   font-normal ">
+                  MRP: ₹ {diliveryCharges}
+                </p>
               </div>
               <br />
               <hr />
               <div className="flex justify-between w-full mt-6">
                 <p className="text-[16px]   font-normal ">Total</p>
-                <p className="text-[16px]   font-medium ">MRP: ₹ 70090</p>
+
+                <p className="text-[16px]   font-medium ">
+                  MRP: ₹ {totalPrice + diliveryCharges}
+                </p>
               </div>
               <br />
               <hr />

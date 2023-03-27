@@ -19,7 +19,10 @@ export const SingleProd = () => {
   const _id = useParams();
   const dispatch = useDispatch();
   let id = parseInt(_id.id);
+  const [search, setSearch] = useState("");
+  const [size, setSize] = useState("");
   const [open, setOpen] = useState(false);
+  const [isSizeSelected, setIsSizeSelected] = useState(false);
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -46,21 +49,26 @@ export const SingleProd = () => {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-
+  const sizeBoxDiv = document.getElementById("sizeBox");
+  console.log(isSizeSelected);
   return (
     <>
-      <Header />
+      <Header setSearch={setSearch} />
       <div className="px-6">
         <div className="flex justify-between w-full">
           <div className="w-[65%] grid grid-cols-2 gap-4  pl-[3rem]">
             <img
-              className="origin-top-left rotate-12"
+              className={`${
+                search.length > 3 ? "" : "origin-top-left rotate-12"
+              }`}
               src={data.original_picture_url}
               alt=""
             />
             <img
               src={data.original_picture_url}
-              className="origin-center rotate-45 mt-12"
+              className={`${
+                search.length > 3 ? "" : "origin-center rotate-45 mt-12"
+              }`}
             />
             <img
               className="origin-bottom -rotate-12"
@@ -86,26 +94,33 @@ export const SingleProd = () => {
               <p className="text-[15px] font-medium">Select size</p>
               <p className="text-[15px] font-light">Select Guide</p>
             </div>
-            <div className="grid grid-cols-4 gap-4">
+            <div id="sizeBox" className="grid grid-cols-4 gap-4">
               {Array.isArray(data.size_range) &&
-                data.size_range
-                  ?.slice(0, 10)
-                  .map((el) => (
-                    <div className=" cursor-pointer w-[100px] border text-center border-primarybg p-2 hover:bg-primarybg">
-                      {el}
-                    </div>
-                  ))}
+                data.size_range?.slice(0, 10).map((el) => (
+                  <div
+                    onClick={() => {
+                      setSize(el);
+                      setIsSizeSelected(true);
+                    }}
+                    className={`cursor-pointer w-[100px] border text-center active:bg-primarybg p-2 hover:bg-primarybg focus:bg-primarybg`}
+                  >
+                    {el}
+                  </div>
+                ))}
             </div>
-
-            <button
+            <input
+              type="button"
+              disabled={size === "" || !isSizeSelected}
               onClick={() => {
-                dispatch(AddProdToCart(data));
-                setOpen(true);
+                if (size) {
+                  dispatch(AddProdToCart(data, size));
+                  setOpen(true);
+                }
               }}
               className="primaryblk-button mt-6 rounded-[10%] w-[90%] content-center"
-            >
-              Add to Bag
-            </button>
+              value="Add to Bag"
+            />
+
             <Snackbar
               open={open}
               autoHideDuration={6000}
@@ -113,7 +128,9 @@ export const SingleProd = () => {
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
               <Alert onClose={() => setOpen(false)} severity="success">
-                Item Added Successfully !
+                {isSizeSelected
+                  ? "Item Added Successfully !"
+                  : "Please select the size"}
               </Alert>
             </Snackbar>
             <button

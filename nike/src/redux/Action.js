@@ -1,13 +1,15 @@
 import { REMOVE_PROD, ADD_PROD, ADD_FAV, REMOVE_FAV } from "./ActionType";
 
-export const AddProdToCart = (id) => (dispatch) => {
+export const AddProdToCart = (el, size) => (dispatch) => {
   dispatch({
     type: ADD_PROD,
-    payload: id,
+    payload: el,
+    size: size,
   });
 };
 
 export const RemoveProdToCart = (id) => (dispatch) => {
+  console.log("action", id);
   dispatch({
     type: REMOVE_PROD,
     payload: id,

@@ -2,15 +2,18 @@ import { Header } from "../Header/Header";
 import { useSelector, useDispatch } from "react-redux";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { RemoveProdFromFav } from "../../redux/Action";
 export const FavouratePage = () => {
   let arr = [];
   const favorate = useSelector((store) => store.fav);
   arr.push(favorate);
   const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
+
   return (
     <div>
-      <Header />
+      <Header setSearch={setSearch} />
       <div className="py-6">
         <div className="w-[80%] m-auto">
           <h3 className=" text-[25px] text-left font-medium mb-10 tracking-[2px]">

@@ -4,6 +4,7 @@ import { VideoCard } from "../VideoCard";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
 import { mapData } from "../../MensSection.jsx/CarouselData";
+import { useEffect, useState } from "react";
 
 export const Landing = () => {
   const responsive = {
@@ -23,10 +24,11 @@ export const Landing = () => {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
+  const [search, setSearch] = useState("");
 
   return (
     <>
-      <Header />
+      <Header setSearch={setSearch} />
       <VideoCard />
       <div className="px-8 pt-12">
         <h1 className="text-[30px] font-bold text-left">Best of Air Max</h1>

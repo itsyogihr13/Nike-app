@@ -6,6 +6,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 export const MensOverview = () => {
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -83,9 +84,13 @@ export const MensOverview = () => {
   }
   return (
     <>
-      <Header />
+      <Header setSearch={setSearch} />
       <div className="px-6">
-        <div className="sticky top-[0px] w-full bg-[#fff]">
+        <div
+          className={` ${
+            search.length > 3 ? "" : "sticky top-[0px]"
+          }  w-full bg-[#fff]`}
+        >
           <div className="flex w-[60%] justify-between ">
             <h1
               onClick={() => scrollToTop(0)}

@@ -9,12 +9,13 @@ import Select from "@mui/material/Select";
 import { Link } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+
 export const MenShoe = () => {
   const [data, setData] = useState();
   const [hide, setHide] = useState(false);
-  const [sort, setSort] = useState("Newest");
+  const [sort, setSort] = useState("New");
   const [open, setOpen] = useState(false);
-  const [search, setsearch] = useState("");
+  const [search, setSearch] = useState("");
   const [categoryVal, setCategoryVal] = useState("Men");
   const handleChange = (e) => {
     if (e.target.value === "Low") {
@@ -71,9 +72,13 @@ export const MenShoe = () => {
 
   return (
     <>
-      <Header />
+      <Header setSearch={setSearch} />
       <div className="px-6">
-        <div className="sticky top-[0px] w-full bg-[#fff] flex justify-between items-center">
+        <div
+          className={`${
+            search.length > 3 ? "" : "sticky top-[0px]"
+          } w-full bg-[#fff] flex justify-between items-center`}
+        >
           <h1 className="text-[30px] font-medium text-left mt-4 mb-3">
             {categoryVal.charAt(0).toUpperCase() + categoryVal.slice(1)}{" "}
             Collection ({data?.length})

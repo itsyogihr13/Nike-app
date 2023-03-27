@@ -6,13 +6,15 @@ import Carousel from "react-multi-carousel";
 import { mapData } from "../MensSection.jsx/CarouselData";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { useSelector } from "react-redux";
 
-export const Header = () => {
+export const Header = ({ setSearch }) => {
   const [open, setOpen] = useState(false);
-
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
+  const cart = useSelector((store) => store.cart.length);
+  const fav = useSelector((store) => store.fav.length);
   const data = [
     {
       field: `Save Up to 40% Shop`,
@@ -29,12 +31,12 @@ export const Header = () => {
   ];
 
   const [searchVal, setSearchVal] = useState("");
-  const [loading, setLoading] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    searchVal.length == 4 && setLoading(true);
-  }, [searchVal]);
+  setSearch(searchVal);
+  // useEffect(() => {
+  //   searchVal.length == 4 && setLoading(true);
+  // }, [searchVal]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -46,21 +48,6 @@ export const Header = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  if (loading) {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    return (
-      <>
-        <div className="loader">
-          <img
-            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXdyazUyMWRranp5aDBncG16YW5qZm94MmlqZzg3bHVuYmtjbWV6ciZjdD1z/LNkvjiNPL7XyoR2I4F/giphy.gif"
-            alt=""
-          />
-        </div>
-      </>
-    );
-  }
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -118,10 +105,7 @@ export const Header = () => {
             </li>
           </Link>
           <Link to="/Men">
-            <li
-              onClick={() => setLoading(true)}
-              className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer"
-            >
+            <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
               Men
             </li>
           </Link>
@@ -162,7 +146,7 @@ export const Header = () => {
           className={
             searchVal.length > 1
               ? "items-center w-[65%] flex justify-between transition delay-300 duration-300 ease-in-out"
-              : "items-center w-[20%] flex justify-between"
+              : "items-center w-[23%] flex justify-between mr-[0.5rem]"
           }
         >
           <input
@@ -174,16 +158,22 @@ export const Header = () => {
             className={
               searchVal.length > 1
                 ? "border text-[14px] w-[500px] bg-primarybg rounded-[30px] px-4 py-2  mt-3 focus:outline-none focus:ring-2 focus:ring-primarybg focus:border-transparent"
-                : "border text-[14px]  bg-primarybg rounded-[30px] px-4 py-2 w-[200px] mt-3 focus:outline-none focus:ring-2 focus:ring-primarybg focus:border-transparent"
+                : "border text-[14px]  bg-primarybg rounded-[30px] px-4 py-2 w-[250px] mt-3 focus:outline-none focus:ring-2 focus:ring-primarybg focus:border-transparent"
             }
           />
           {!searchVal.length ? (
             <>
               <Link to="/fav">
-                <FavoriteBorderIcon />
+                <FavoriteBorderIcon className="transition-all duration-200 hover:w-[25px] hover:h-[30px] hover:primarybg" />
+                <span className=" rounded-[30%]  mb-[5px] ml-[-8px] mt-[-5px] bg-[#fff] px-[3px]">
+                  {fav}
+                </span>
               </Link>
               <Link to="/cart">
-                <WorkOutlineIcon />
+                <WorkOutlineIcon className="transition-all duration-500 hover:w-[25px] hover:h-[30px] hover:primarybg" />
+                <span className=" rounded-[30%]  mb-[5px] ml-[-8px] mt-[-5px] bg-[#fff] px-[3px]">
+                  {cart}
+                </span>
               </Link>
             </>
           ) : (
@@ -199,7 +189,7 @@ export const Header = () => {
         </div>
       </div>
       {searchVal.length > 3 && (
-        <div className="bg-[#fff] w-full py-[1.5rem] absolute top-180 left-0 right-0 transition delay-300 duration-700 ease-in-out">
+        <div className="bg-[#fff]  m-auto pt-[4rem] pb-[2.5rem] px-[4rem] border-b-[3px] border-primarybg absolute top-180 left-0 right-0 transition delay-300 duration-700 ease-in-out">
           <Carousel responsive={responsive} transitionDuration={100}>
             {mapData
               ?.filter((el) =>

@@ -4,6 +4,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { RemoveProdFromFav } from "../../redux/Action";
+import { Footer } from "../Header/Footer";
 export const FavouratePage = () => {
   let arr = [];
   const favorate = useSelector((store) => store.fav);
@@ -16,12 +17,12 @@ export const FavouratePage = () => {
       <Header setSearch={setSearch} />
       <div className="py-6">
         <div className="w-[80%] m-auto">
-          <h3 className=" text-[25px] text-left font-medium mb-10 tracking-[2px]">
+          <h3 className=" text-[25px] text-left font-medium mb-6 tracking-[2px]">
             Favourate Items ({arr[0].length})
           </h3>
           {!arr[0].length && (
             <div>
-              <h3 className=" text-[25px] font-medium my-6 pt-[5rem] tracking-[2px]">
+              <h3 className=" text-[25px] font-medium my-2 pt-[4rem] tracking-[2px]">
                 No items will be Added in Favourate List
               </h3>
             </div>
@@ -81,6 +82,7 @@ export const FavouratePage = () => {
           </button>
         </Link>
       </div>
+      <Footer />
     </div>
   );
 };

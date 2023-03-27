@@ -5,7 +5,7 @@ import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
 import { mapData } from "../../MensSection.jsx/CarouselData";
 import { useEffect, useState } from "react";
-
+import { Footer } from "../Footer";
 export const Landing = () => {
   const responsive = {
     desktop: {
@@ -123,6 +123,7 @@ export const Landing = () => {
           </div>
         </Link>
       </div>
+      <Footer />
     </>
   );
 };

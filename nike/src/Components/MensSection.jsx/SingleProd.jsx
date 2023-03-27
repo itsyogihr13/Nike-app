@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { AddProdToCart, AddToFav } from "../../redux/Action";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { Footer } from "../Header/Footer";
 export const SingleProd = () => {
   const [data, setData] = useState([]);
   const _id = useParams();
@@ -242,6 +243,7 @@ export const SingleProd = () => {
           </Carousel>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

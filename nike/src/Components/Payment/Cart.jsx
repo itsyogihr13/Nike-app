@@ -8,6 +8,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { useEffect, useState } from "react";
 import { RemoveProdToCart, AddToFav } from "../../redux/Action";
+import { Footer } from "../Header/Footer";
 export const CartPage = () => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -208,6 +209,7 @@ export const CartPage = () => {
           </button>
         </Link>
       </div>
+      <Footer />{" "}
     </div>
   );
 };

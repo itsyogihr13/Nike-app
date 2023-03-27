@@ -6,6 +6,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { mapData } from "./CarouselData";
 import menfasion from "./menfas.mp4";
+import { Footer } from "../Header/Footer";
 export const MensOverview = () => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -163,7 +164,13 @@ export const MensOverview = () => {
             />
           </div>
         </Link>
+        <img
+          className="w-full mt-16"
+          src="https://images.unsplash.com/photo-1637666725970-53822683726a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bmlrZSUyMHN0b3JlfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+          alt=""
+        />
       </div>
+      <Footer />
     </>
   );
 };

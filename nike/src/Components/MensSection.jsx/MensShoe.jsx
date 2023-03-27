@@ -9,6 +9,7 @@ import Select from "@mui/material/Select";
 import { Link } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { Footer } from "../Header/Footer";
 
 export const MenShoe = () => {
   const [data, setData] = useState();
@@ -229,6 +230,7 @@ export const MenShoe = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

@@ -6,6 +6,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { mapData } from "../MensSection.jsx/CarouselData";
 import kidfasion from "./menfasion.mp4";
+import { Footer } from "../Header/Footer";
 export const KidsOverview = () => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -175,6 +176,7 @@ export const KidsOverview = () => {
           </div>
         </Link>
       </div>
+      <Footer />
     </>
   );
 };

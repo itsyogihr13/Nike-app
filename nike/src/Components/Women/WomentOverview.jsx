@@ -6,6 +6,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { mapData } from "../MensSection.jsx/CarouselData";
 import FasionVideo from "./nikeFasion.mp4";
+import { Footer } from "../Header/Footer";
 export const WomentOverview = () => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -197,6 +198,7 @@ export const WomentOverview = () => {
           srcset=""
         />
       </div>
+      <Footer />
     </>
   );
 };

@@ -4,6 +4,8 @@ import Carousel from "react-multi-carousel";
 import { Link } from "react-router-dom";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { mapData } from "./CarouselData";
+import menfasion from "./menfas.mp4";
 export const MensOverview = () => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -28,57 +30,7 @@ export const MensOverview = () => {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-  const mapData = [
-    {
-      img: "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_476,c_limit/e6da41fa-1be4-4ce5-b89c-22be4f1f02d4/air-force-1-07-shoes-WrLlWX.png",
-      brand_name: "Nike Air Force 1 07",
-      price: "7,456",
-      priority: "Men's Shoes",
-    },
-    {
-      img: "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_476,c_limit/bc376c3e-fb23-4d59-a9ff-e2407eaf1c8d/nikecourt-legacy-suede-shoes-QcMfd3.png",
-      brand_name: "Nike Air Max SYSTM",
-      price: "6,480",
-      priority: "Older Kids Shoes",
-    },
-    {
-      img: "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_476,c_limit/5709aa61-4952-406f-9b9e-83aa19e05492/dri-fit-woven-training-jacket-j0PLdZ.png",
-      brand_name: "Nike Dry FIT",
-      price: "3,595",
-      priority: "Mens Woment Training Jacket",
-    },
-    {
-      img: "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_476,c_limit/2246d930-e04a-4ff7-84a1-2736b38daffe/max90-all-over-print-basketball-t-shirt-Bg6CnP.png",
-      brand_name: "Nike Max90",
-      price: "16,480",
-      priority: "Men's All-over print Basketball T-Shirt",
-    },
 
-    {
-      img: "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.3/h_476,c_limit/ed1fa4f9-93c1-4ebc-96b3-f0a757aced15/jordan-one-take-4-pf-shoes-cdsVn1.png",
-      brand_name: "Jordon One Take 4 PF",
-      price: "9,900",
-      priority: "Men's Shoes",
-    },
-    {
-      img: "https://image.goat.com/375/attachments/product_template_pictures/images/010/223/048/original/13607_00.png.png",
-      brand_name: "Nike Air SC",
-      price: "10,480",
-      priority: "Women Shoes",
-    },
-    {
-      img: "https://image.goat.com/375/attachments/product_template_pictures/images/020/806/444/original/507844_00.png.png",
-      brand_name: "Nike Air Max SYSTM",
-      price: "6,480",
-      priority: "Older Kids Shoes",
-    },
-    {
-      img: "https://image.goat.com/375/attachments/product_template_pictures/images/008/654/900/original/52015_00.png.png",
-      brand_name: "Nike Air Max 90 SE",
-      price: "12,789",
-      priority: "Mens Shoes",
-    },
-  ];
   function scrollToTop(e) {
     window.scrollTo({ top: e, behavior: "smooth" }); // Scroll to the top with a smooth animation
   }
@@ -129,11 +81,7 @@ export const MensOverview = () => {
             </div>
           </div>
         </div>
-        <img
-          src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_1423,c_limit/b5a680e2-c60c-47be-8766-900cd11cc8f4/nike-just-do-it.jpg"
-          alt=""
-          srcset=""
-        />
+        <video src={menfasion} width="1800" height="500" autoPlay muted></video>
         <div className="text-center w-[80%]  m-auto pt-[2rem]">
           <p className="font-black text-[65px] tracking-[1px] mt-3 ">
             STEP INTO WHAT FEELS GOOD

@@ -21,7 +21,6 @@ export const CartPage = () => {
   const [tara, setTara] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   let diliveryCharges = totalPrice == 0 ? 0 : 700;
-
   arr.push(cart);
   useEffect(() => {
     if (arr[0].length !== 0) {
@@ -63,6 +62,7 @@ export const CartPage = () => {
     setTara(newTara);
     setChange(change + 1);
   };
+  console.log(totalPrice);
   return (
     <div>
       <Header setSearch={setSearch} />
@@ -86,7 +86,7 @@ export const CartPage = () => {
                 <div className="flex w-full pl-6 justify-between">
                   <div className="text-left">
                     <h1 className="font-medium text-[18px]">{el?.name}</h1>
-                    <p className="text-[16px] text-[#787d82] mt-3 font-normal ">
+                    <p className="text-[16px] text-[#787d82] mt-3 font-normal">
                       Men's Shoes
                     </p>
                     <p className="text-[16px] text-[#787d82]  font-normal ">

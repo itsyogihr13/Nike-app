@@ -98,3 +98,11 @@ export const mapData = [
     priority: "Mens Shoes",
   },
 ];
+export const womenData = [
+  {
+    img: "https://image.goat.com/375/attachments/product_template_pictures/images/008/654/900/original/52015_00.png.png",
+    brand_name: "Nike Air Max 90 SE",
+    price: "12,789",
+    priority: "Mens Shoes",
+  },
+];

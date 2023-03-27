@@ -109,12 +109,12 @@ export const Header = ({ setSearch }) => {
               Men
             </li>
           </Link>
-          <Link to="/Men">
+          <Link to="/women">
             <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
               Women
             </li>
           </Link>
-          <Link to="/Men">
+          <Link to="/kids">
             <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
               Kids
             </li>

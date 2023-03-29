@@ -119,24 +119,8 @@ export const KidsOverview = () => {
             );
           })}
         </Carousel>
-        <h1 className="text-[30px] font-bold text-left mt-8 mb-6">
-          Jordon Apprel
-        </h1>
+
         <div className="w-full">
-          <div className="flex w-full justify-between">
-            <img
-              className="w-[49.5%]"
-              src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/6e0ebbf7-c636-43d8-8662-8a9a6a9b93f8/icon-fleece-older-oversized-pullover-basketball-hoodie-2TQPfF.png"
-              alt=""
-              srcset=""
-            />
-            <img
-              className="w-[49.5%]"
-              src="https://c8.alamy.com/comp/EH9523/child-model-walks-the-runway-at-the-nike-levis-kids-fashion-show-during-EH9523.jpg"
-              alt=""
-              srcset=""
-            />
-          </div>
           <div className="text-center w-[80%]  m-auto pt-[2rem]">
             <p className="font-black text-[65px] tracking-[1px] mt-3 ">
               FLIGHT ESSENTIALS
@@ -153,7 +137,15 @@ export const KidsOverview = () => {
             </button>
           </div>
         </div>
-        <h1 className="text-[30px] font-bold text-left mt-8 mb-6">
+        <h1 className="text-[30px] font-medium text-left mt-8 mb-6">
+          Matching Fits
+        </h1>
+        <img
+          src="https://admin.itsnicethat.com/images/ApbMi49N-L8TOGcFJWOl5VOBK8k=/226388/format-webp%7Cwidth-2880/butt-studio-nike-itsnicethat-05.jpg"
+          alt=""
+          srcset=""
+        />
+        <h1 className="text-[30px] font-medium text-left mt-8 mb-6">
           The Essentials
         </h1>
         <Link to="/Men/shoe">

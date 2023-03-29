@@ -24,14 +24,17 @@ export const SingleProd = () => {
   const [size, setSize] = useState("");
   const [open, setOpen] = useState(false);
   const [isSizeSelected, setIsSizeSelected] = useState(false);
+  const [clickedIndex, setClickedIndex] = useState(-1);
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
   useEffect(() => {
-    axios.get(`http://localhost:8080/shoes/${id}`).then((res) => {
-      setData(res.data);
-    });
+    axios
+      .get(`https://easy-rose-python-vest.cyclic.app/api/shoes/${id}`)
+      .then((res) => {
+        setData(res.data);
+      });
   }, []);
   const responsive = {
     desktop: {
@@ -51,7 +54,8 @@ export const SingleProd = () => {
     },
   };
   const sizeBoxDiv = document.getElementById("sizeBox");
-  console.log(isSizeSelected);
+
+  console.log(data);
   return (
     <>
       <Header setSearch={setSearch} />
@@ -95,48 +99,56 @@ export const SingleProd = () => {
               <p className="text-[15px] font-medium">Select size</p>
               <p className="text-[15px] font-light">Select Guide</p>
             </div>
-            <div id="sizeBox" className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-4">
               {Array.isArray(data.size_range) &&
-                data.size_range?.slice(0, 10).map((el) => (
+                data.size_range?.slice(0, 10).map((el, index) => (
                   <div
+                    id="sizeBox"
+                    key={el}
                     onClick={() => {
                       setSize(el);
                       setIsSizeSelected(true);
+                      setClickedIndex(index);
                     }}
-                    className={`cursor-pointer w-[100px] border text-center active:bg-primarybg p-2 hover:bg-primarybg focus:bg-primarybg`}
+                    className={`cursor-pointer w-[100px] border text-center  p-2 hover:bg-primarybg ${
+                      index === clickedIndex ? "bg-primarybg" : ""
+                    }`}
                   >
                     {el}
                   </div>
                 ))}
             </div>
-            <input
+            <button
               type="button"
-              disabled={size === "" || !isSizeSelected}
               onClick={() => {
-                if (size) {
-                  dispatch(AddProdToCart(data, size));
-                  setOpen(true);
+                {
+                  isSizeSelected && dispatch(AddProdToCart(data, size));
                 }
+
+                setOpen(true);
               }}
               className="primaryblk-button mt-6 rounded-[10%] w-[90%] content-center"
-              value="Add to Bag"
-            />
+            >
+              Add to Bag
+            </button>
 
             <Snackbar
               open={open}
               autoHideDuration={6000}
               onClose={() => setOpen(false)}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              style={{ zIndex: 10000 }}
             >
               <Alert onClose={() => setOpen(false)} severity="success">
                 {isSizeSelected
-                  ? "Item Added Successfully !"
-                  : "Please select the size"}
+                  ? "Item Added Successfully!"
+                  : "Please select a size"}
               </Alert>
             </Snackbar>
+
             <button
               onClick={() => {
-                setOpen(true);
+                // setOpen(true);
                 dispatch(AddToFav(data));
               }}
               className="bg-[#fff] text-[#000000] text-center min-h-[20px] cursor-pointer px-4 py-2 font-normal text-[16px] mt-6 rounded-[12px] w-[90%] content-center border border-black"

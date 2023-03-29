@@ -23,6 +23,7 @@ export const CartPage = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   let diliveryCharges = totalPrice == 0 ? 0 : 700;
   arr.push(cart);
+
   useEffect(() => {
     if (arr[0].length !== 0) {
       const newtara = arr[0].map((el) => ({
@@ -32,14 +33,6 @@ export const CartPage = () => {
       setTara(newtara);
     }
   }, []);
-
-  useEffect(() => {
-    const newPrice = tara.reduce((accumulator, item) => {
-      return accumulator + item.quantity * item.price_main;
-    }, 0);
-    setTotalPrice(newPrice);
-  }, [change]);
-
   const handleIncrement = (itemId) => {
     const newTara = tara.map((item) => {
       if (item.id === itemId) {
@@ -63,7 +56,14 @@ export const CartPage = () => {
     setTara(newTara);
     setChange(change + 1);
   };
-  console.log(totalPrice);
+
+  useEffect(() => {
+    const newPrice = tara.reduce((accumulator, item) => {
+      return accumulator + item.quantity * item.price_main;
+    }, 0);
+    setTotalPrice(newPrice);
+  }, [tara]);
+
   return (
     <div>
       <Header setSearch={setSearch} />

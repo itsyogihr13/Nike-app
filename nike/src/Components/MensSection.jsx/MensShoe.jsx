@@ -40,17 +40,21 @@ export const MenShoe = () => {
   const handleOpen = () => {
     setOpen(true);
   };
-
+  let api = "https://easy-rose-python-vest.cyclic.app/api";
   const handleSortbyCategory = (e) => {
     setCategoryVal(e.target.value);
     axios
-      .get(`http://localhost:8080/shoes?category=${e.target.value}`)
+      .get(
+        `https://easy-rose-python-vest.cyclic.app/api/shoes?category=${e.target.value}`
+      )
       .then((res) => setData(res.data));
   };
   const handleSortbygender = (e) => {
     setCategoryVal(e.target.value);
     axios
-      .get(`http://localhost:8080/shoes?gender=${e.target.value}`)
+      .get(
+        `https://easy-rose-python-vest.cyclic.app/api/shoes?gender=${e.target.value}`
+      )
       .then((res) => setData(res.data));
   };
 
@@ -62,13 +66,15 @@ export const MenShoe = () => {
     );
     axios
       .get(
-        `http://localhost:8080/shoes?_sort=price_main_gte=${a}&price_main_lte=${b}`
+        `https://easy-rose-python-vest.cyclic.app/api/shoes?_sort=price_main_gte=${a}&price_main_lte=${b}`
       )
       .then((res) => setData(res.data));
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8080/shoes").then((res) => setData(res.data));
+    axios
+      .get("https://easy-rose-python-vest.cyclic.app/api/shoes")
+      .then((res) => setData(res.data));
   }, []);
 
   return (
@@ -84,26 +90,34 @@ export const MenShoe = () => {
             {categoryVal.charAt(0).toUpperCase() + categoryVal.slice(1)}{" "}
             Collection ({data?.length})
           </h1>
-          <div className="flex text-right w-[20%] justify-evenly mt-4 mb-3 list-none items-center">
-            <li>{hide ? "Show" : "Hide"} Filter</li>
+          <div className="flex text-right w-[20%] justify-evenly mt-4 mb-3 list-none items-center cursor-pointer">
+            <li onClick={() => setHide(!hide)}>
+              {hide ? "Show" : "Hide"} Filter
+            </li>
             <FilterAltIcon onClick={() => setHide(!hide)} />
-            <li>Sort</li>
-            <SortIcon />
-            <FormControl sx={{ width: 100 }}>
-              <Select
-                labelId="demo-controlled-open-select-label"
-                id="demo-controlled-open-select"
-                open={open}
-                onClose={handleClose}
-                onOpen={handleOpen}
-                value={sort}
-                onChange={handleChange}
-              >
-                <MenuItem value={"New"}>Newest</MenuItem>
-                <MenuItem value={"Low"}>Low to High</MenuItem>
-                <MenuItem value={"High"}>High to Low</MenuItem>
-              </Select>
-            </FormControl>
+            <li onClick={() => setOpen(true)}>Sort</li>
+            <SortIcon onClick={() => setOpen(true)} />
+            {search.length > 3 ? (
+              <></>
+            ) : (
+              <>
+                <FormControl sx={{ width: 100 }}>
+                  <Select
+                    labelId="demo-controlled-open-select-label"
+                    id="demo-controlled-open-select"
+                    open={open}
+                    onClose={handleClose}
+                    onOpen={handleOpen}
+                    value={sort}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={"New"}>Newest</MenuItem>
+                    <MenuItem value={"Low"}>Low to High</MenuItem>
+                    <MenuItem value={"High"}>High to Low</MenuItem>
+                  </Select>
+                </FormControl>
+              </>
+            )}
           </div>
         </div>
         <div className="flex w-full">

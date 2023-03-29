@@ -99,19 +99,19 @@ export const Header = ({ setSearch }) => {
             searchVal.length > 1 ? "hidden" : "visible"
           } header-component w-[40%] flex justify-around items-center pt-2`}
         >
-          <Link to="/Men">
+          <Link to="/">
             <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
               New & Featured
-            </li>
-          </Link>
-          <Link to="/Men">
-            <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
-              Men
             </li>
           </Link>
           <Link to="/women">
             <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
               Women
+            </li>
+          </Link>
+          <Link to="/Men">
+            <li className="list-none text-[18px] hover:underline hover:underline-offset-8 cursor-pointer">
+              Men
             </li>
           </Link>
           <Link to="/kids">

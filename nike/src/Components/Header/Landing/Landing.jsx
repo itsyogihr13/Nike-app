@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { mapData } from "../../MensSection.jsx/CarouselData";
 import { useEffect, useState } from "react";
 import { Footer } from "../Footer";
+import nikegif from "../../../assets/nikegif.gif";
 export const Landing = () => {
   const responsive = {
     desktop: {
@@ -56,7 +57,8 @@ export const Landing = () => {
         <h1 className="text-[30px] font-bold text-left mt-8 mb-6">Featured</h1>
         <Link to="/Men">
           <img
-            src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_1423,c_limit/b5a680e2-c60c-47be-8766-900cd11cc8f4/nike-just-do-it.jpg"
+            className="w-full"
+            src="https://wallpapercrafter.com/sizes/2560x1440/36947-Karlie-Kloss-Nike-weight-loss-relax-Fitness.jpg"
             alt=""
             srcset=""
           />
@@ -79,11 +81,7 @@ export const Landing = () => {
         </h1>
         <div className="w-full">
           <Link to="/Men">
-            <img
-              src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_1423,c_limit/f26acfc4-0505-4c2d-ae46-f5696f4c7674/nike-just-do-it.jpg"
-              alt=""
-              srcset=""
-            />
+            <img className="w-full" src={nikegif} alt="img" srcset="" />
           </Link>
           <div className="text-center w-[80%]  m-auto pt-[2rem]">
             <p className="font-black text-[65px] tracking-[1px] mt-3 ">

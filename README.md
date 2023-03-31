@@ -14,10 +14,10 @@ The world's largest athletic apparel company, Nike is best known for its footwea
 1. HTML5
 2. CSS3
 3. Advanced JavaScript
-4  Mui
-5  Tailwind css
+4. Mui
+5. Tailwind css
 6. ReactJS
-7  React-Redux
+7. React-Redux
 
 <!-- 
 

@@ -56,7 +56,9 @@ export const CartPage = () => {
     setTara(newTara);
     setChange(change + 1);
   };
-
+  const handleDelete = (itemID) => {
+    setTara(tara.filter((el) => el.id !== itemID));
+  };
   useEffect(() => {
     const newPrice = tara.reduce((accumulator, item) => {
       return accumulator + item.quantity * item.price_main;
@@ -126,7 +128,8 @@ export const CartPage = () => {
                       </Snackbar>
                       <DeleteOutlineIcon
                         onClick={() => {
-                          dispatch(RemoveProdToCart(el.id), setTara([]));
+                          handleDelete(el.id);
+                          dispatch(RemoveProdToCart(el.id));
                         }}
                       />
                     </div>
@@ -156,7 +159,7 @@ export const CartPage = () => {
                 </div>
               </div>
             ))}
-            {!arr[0].length && (
+            {!tara.length && (
               <div>
                 <h3 className=" text-[25px] text-left font-medium my-6 mt-[2rem] tracking-[2px]">
                   No items will be Added in Beg Yet
@@ -164,7 +167,7 @@ export const CartPage = () => {
               </div>
             )}
           </div>
-          {arr[0].length && (
+          {tara.length && (
             <div className="w-[33%] pl-4">
               <h3 className=" text-[25px] text-left font-medium mb-6 tracking-[2px]">
                 Summary

@@ -32,18 +32,14 @@ export const Header = ({ setSearch }) => {
 
   const [searchVal, setSearchVal] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-
   setSearch(searchVal);
-  // useEffect(() => {
-  //   searchVal.length == 4 && setLoading(true);
-  // }, [searchVal]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentIndex((prevIndex) =>
         prevIndex === data.length - 1 ? 0 : prevIndex + 1
       );
-    }, 2000);
+    }, 1500);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -143,11 +139,9 @@ export const Header = ({ setSearch }) => {
           </Snackbar>
         </div>
         <div
-          className={
-            searchVal.length > 1
-              ? "items-center w-[65%] flex justify-between transition delay-300 duration-300 ease-in-out"
-              : "items-center w-[23%] flex justify-between mr-[0.5rem]"
-          }
+          className={`${
+            searchVal.length > 1 ? "w-[65%]" : "w-[23%]"
+          } items-center flex justify-between`}
         >
           <input
             value={searchVal}
@@ -155,11 +149,10 @@ export const Header = ({ setSearch }) => {
             type="search"
             name="search"
             placeholder="Search Nike. . ."
-            className={
-              searchVal.length > 1
-                ? "border text-[14px] w-[500px] bg-primarybg rounded-[30px] px-4 py-2  mt-3 focus:outline-none focus:ring-2 focus:ring-primarybg focus:border-transparent"
-                : "border text-[14px]  bg-primarybg rounded-[30px] px-4 py-2 w-[250px] mt-3 focus:outline-none focus:ring-2 focus:ring-primarybg focus:border-transparent"
-            }
+            className={`
+             ${searchVal.length > 1 ? "w-[500px]" : "w-[70%]"} 
+                border text-[14px] bg-primarybg rounded-[30px] px-4 py-2  mt-3 focus:outline-none focus:ring-2 focus:ring-primarybg focus:border-transparent
+            `}
           />
           {!searchVal.length ? (
             <>
@@ -171,7 +164,7 @@ export const Header = ({ setSearch }) => {
               </Link>
               <Link to="/cart">
                 <WorkOutlineIcon className="transition-all duration-500 hover:w-[25px] hover:h-[30px] hover:primarybg" />
-                <span className=" rounded-[30%]  mb-[5px] ml-[-8px] mt-[-5px] bg-[#fff] px-[3px]">
+                <span className="rounded-[30%]  mb-[5px] ml-[-8px] mt-[-5px] bg-[#fff] px-[3px]">
                   {cart}
                 </span>
               </Link>

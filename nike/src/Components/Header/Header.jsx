@@ -188,19 +188,21 @@ export const Header = ({ setSearch }) => {
               ?.filter((el) =>
                 el.brand_name.toLowerCase().includes(searchVal.toLowerCase())
               )
-              .map((el) => {
+              .map((el, index) => {
                 return (
                   <Link to="/Men/shoe">
-                    <div className="ExploreDiv px-6">
+                    <div key={index} className="ExploreDiv px-6">
                       <img
                         className="ExploreDivImg bg-primarybg w-[95%]"
                         src={el.img}
                       />
                       <div className="flex justify-between w-[90%] mt-2">
-                        <h1 className="font-medium">{el.brand_name}</h1>
-                        <h1 className="font-medium">{el.price}</h1>
+                        <p className="font-medium text-[12px] ">
+                          {el.brand_name}
+                        </p>
+                        <p className=" text-[13px] font-medium">{`MRP: ₹  ${el.price}`}</p>
                       </div>
-                      <p className="text-left text-[10px]">{el.priority}</p>
+                      <p className="text-left text-[12px]">{el.priority}</p>
                     </div>
                   </Link>
                 );

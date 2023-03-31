@@ -106,7 +106,7 @@ export const CartPage = () => {
                     <div className="flex justify-between w-[25%] mt-4">
                       <FavoriteBorderIcon
                         onClick={() => {
-                          dispatch(AddToFav(el.id));
+                          dispatch(AddToFav(el));
                           setOpen(true);
                         }}
                       />
@@ -140,16 +140,16 @@ export const CartPage = () => {
                     </p>
                     <div className="mt-[2.5rem] mr-[-10px]">
                       <button
-                        className="bg-primarybg py-2 px-4 text-medium"
+                        className="bg-primarybg py-2 px-2 text-medium"
                         onClick={() => handleDecrement(el.id)}
                       >
                         -
                       </button>
-                      <button className="py-2 px-4 font-normal">
+                      <button className="py-2 px-2 font-normal">
                         {el.quantity}
                       </button>
                       <button
-                        className="bg-primarybg py-2 px-4 text-medium"
+                        className="bg-primarybg py-2 px-2 text-medium"
                         onClick={() => handleIncrement(el.id)}
                       >
                         +

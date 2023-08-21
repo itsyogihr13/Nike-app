@@ -8,10 +8,16 @@ import { SingleProd } from "../Components/MensSection.jsx/SingleProd";
 import { CartPage } from "../Components/Payment/Cart";
 import { WomentOverview } from "../Components/Women/WomentOverview";
 import { KidsOverview } from "../Components/kids/KidsOverview";
+import LoginPage from "../Components/Login";
+import RegistrationPage from "../Components/Registration";
+import { ProfilePage } from "../Components/Myprofile";
 export const AllRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegistrationPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
       <Route path="/Men" element={<MensOverview />} />
       <Route path="/women" element={<WomentOverview />} />
       <Route path="/kids" element={<KidsOverview />} />

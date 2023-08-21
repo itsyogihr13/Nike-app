@@ -1,15 +1,25 @@
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import { mapData } from "../MensSection.jsx/CarouselData";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+import { logoutUser } from "../../redux/Action";
 export const Header = ({ setSearch }) => {
   const [open, setOpen] = useState(false);
+  const [cartopen, setCartopen] = useState(false);
+  const registerData = useSelector((store) => store.user);
+  const store = useSelector((store) => store);
+  const [name, setName] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
@@ -44,6 +54,10 @@ export const Header = ({ setSearch }) => {
     return () => clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    if (registerData) registerData.map((el) => setName(el.name));
+  }, [registerData]);
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -73,11 +87,82 @@ export const Header = ({ setSearch }) => {
             />
           </div>
         </Link>
-        <div className="flex justify-around w-[16%]">
+        <div
+          className={`flex justify-around ${
+            store.isAuthenticated ? "w-[22%]" : "w-[16%]"
+          }`}
+        >
           <li className="list-none text-[12px]">Find Store </li>
-          <li className="list-none text-[12px]">Join Us </li>
+          <li className="list-none text-[12px]">Join Us</li>
           <li className="list-none text-[12px]">Help </li>
-          <li className="list-none text-[12px]">Sign In </li>
+          <li
+            onClick={() => {
+              navigate("/register");
+            }}
+            className="list-none text-[12px] cursor-pointer hover:text-[14px] duration-200"
+          >
+            {store.isAuthenticated ? name : "Sign In"}
+          </li>
+
+          <PopupState variant="popover" popupId="demo-popup-menu">
+            {(popupState) => (
+              <>
+                {store.isAuthenticated ? (
+                  <AccountCircleIcon
+                    variant="contained"
+                    {...bindTrigger(popupState)}
+                  >
+                    Profile
+                  </AccountCircleIcon>
+                ) : null}
+
+                <Menu {...bindMenu(popupState)}>
+                  <MenuItem
+                    onClick={() => {
+                      popupState.close();
+                      navigate("/profile");
+                    }}
+                  >
+                    Profile
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      popupState.close(); // Corrected this line
+                      navigate("/cart");
+                    }}
+                  >
+                    Cart
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={() => {
+                      popupState.close();
+                      navigate("/fav");
+                    }}
+                  >
+                    Favourates
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      popupState.close();
+                      cart ? navigate("/cart") : alert("No Order Yet");
+                    }}
+                  >
+                    Your Orders
+                  </MenuItem>
+
+                  <MenuItem
+                    onClick={() => {
+                      popupState.close();
+                      dispatch(logoutUser);
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </>
+            )}
+          </PopupState>
         </div>
       </div>
       <div className="visible ease-in duration-300 relative flex w-full justify-between items-center px-6">

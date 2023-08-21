@@ -17,7 +17,7 @@ export const FavouratePage = () => {
       <Header setSearch={setSearch} />
       <div className="py-6">
         <div className="w-[80%] m-auto">
-          <h3 className=" text-[25px] text-left font-medium mb-6 tracking-[2px]">
+          <h3 className=" text-[25px] text-left font-medium mb-6 mt-4 tracking-[2px]">
             Favourate Items ({arr[0].length})
           </h3>
           {!arr[0].length && (

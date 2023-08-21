@@ -1,4 +1,11 @@
-import { REMOVE_PROD, ADD_PROD, ADD_FAV, REMOVE_FAV } from "./ActionType";
+import {
+  REMOVE_PROD,
+  ADD_PROD,
+  ADD_FAV,
+  REMOVE_FAV,
+  LOGIN,
+  LOGOUT,
+} from "./ActionType";
 
 export const AddProdToCart = (el, size) => (dispatch) => {
   dispatch({
@@ -9,7 +16,6 @@ export const AddProdToCart = (el, size) => (dispatch) => {
 };
 
 export const RemoveProdToCart = (id) => (dispatch) => {
-  console.log("action", id);
   dispatch({
     type: REMOVE_PROD,
     payload: id,
@@ -29,3 +35,9 @@ export const RemoveProdFromFav = (id) => (dispatch) => {
     payload: id,
   });
 };
+export const loginUser = (userData) => ({
+  type: LOGIN,
+  payload: userData,
+});
+
+export const logoutUser = (dispatch) => dispatch({ type: LOGOUT });

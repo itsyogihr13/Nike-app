@@ -34,11 +34,10 @@ export const Landing = () => {
       <div className="px-8 pt-12">
         <h1 className="text-[30px] font-bold text-left">Best of Air Max</h1>
         <Carousel responsive={responsive} transitionDuration={100}>
-          {mapData?.map((el) => {
+          {mapData?.map((el, id) => {
             return (
               <Link to="/Men/shoe">
-                {" "}
-                <div className="ExploreDiv">
+                <div key={id} className="ExploreDiv">
                   <img
                     className="ExploreDivImg bg-primarybg w-[95%]"
                     src={el.img}

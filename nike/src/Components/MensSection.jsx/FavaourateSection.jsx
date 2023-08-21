@@ -11,7 +11,7 @@ export const FavouratePage = () => {
   arr.push(favorate);
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-
+  console.log("fav", favorate);
   return (
     <div>
       <Header setSearch={setSearch} />
@@ -27,8 +27,8 @@ export const FavouratePage = () => {
               </h3>
             </div>
           )}
-          {arr[0]?.map((el) => (
-            <div className="flex w-full mb-10">
+          {arr[0]?.map((el, index) => (
+            <div key={index} className="flex w-full mb-10">
               <Link to={`/Singleprod/${el.id.id}`}>
                 <div className="img-div bg-primarybg p-4 ">
                   <img

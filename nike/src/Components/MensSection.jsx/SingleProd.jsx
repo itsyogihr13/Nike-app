@@ -53,9 +53,6 @@ export const SingleProd = () => {
       slidesToSlide: 1, // optional, default to 1.
     },
   };
-  const sizeBoxDiv = document.getElementById("sizeBox");
-
-  console.log(data);
   return (
     <>
       <Header setSearch={setSearch} />
@@ -110,7 +107,7 @@ export const SingleProd = () => {
                       setIsSizeSelected(true);
                       setClickedIndex(index);
                     }}
-                    className={`cursor-pointer w-[100px] border text-center  p-2 hover:bg-primarybg ${
+                    className={`cursor-pointer border text-center  p-2 hover:bg-primarybg ${
                       index === clickedIndex ? "bg-primarybg" : ""
                     }`}
                   >

@@ -21,8 +21,35 @@ export const CartPage = () => {
   const [change, setChange] = useState(0);
   const [tara, setTara] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [name, SetName] = useState("");
+  const [img, setImg] = useState("");
   let diliveryCharges = totalPrice == 0 ? 0 : 700;
   arr.push(cart);
+  const [paymentStatus, setPaymentStatus] = useState(null);
+  const loadScript = (src, callback) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.async = true;
+    script.onload = callback;
+    document.head.appendChild(script);
+  };
+  const handlePayment = async () => {
+    const options = {
+      key: "rzp_test_N7JAloi8EO00qI",
+      amount: totalPrice,
+      currency: "INR",
+      name,
+      description: "Payment for your service",
+      img,
+      handler: async (response) => {
+        // Handle the payment success
+        setPaymentStatus("Payment successful: " + response.razorpay_payment_id);
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
 
   useEffect(() => {
     if (arr[0].length !== 0) {
@@ -65,6 +92,17 @@ export const CartPage = () => {
     }, 0);
     setTotalPrice(newPrice);
   }, [tara]);
+
+  useEffect(() => {
+    tara.forEach((el) => {
+      setImg(el.grid_picture_url);
+      SetName(el.name);
+    });
+  }, [tara]);
+
+  useEffect(() => {
+    loadScript("https://checkout.razorpay.com/v1/checkout.js", () => {});
+  }, []);
 
   return (
     <div>
@@ -195,9 +233,15 @@ export const CartPage = () => {
               </div>
               <br />
               <hr />
-              <button className="primaryblk-button mt-6 rounded-[10%] w-[90%] content-center">
+
+              <button
+                onClick={handlePayment}
+                className="primaryblk-button mt-6 rounded-[10%] w-[90%] content-center"
+              >
                 Procced to Checkout
               </button>
+              {paymentStatus && <p>{paymentStatus}</p>}
+
               <Link to="/Men">
                 <button className="bg-[#fff] text-[#000000] text-center min-h-[20px] cursor-pointer px-4 py-2 font-normal text-[16px] mt-6 rounded-[12px] w-[90%] content-center border border-black">
                   {!arr[0].length ? "Go to Shoping" : " Back to Shoping"}
@@ -212,7 +256,7 @@ export const CartPage = () => {
           </button>
         </Link>
       </div>
-      <Footer />{" "}
+      <Footer />
     </div>
   );
 };

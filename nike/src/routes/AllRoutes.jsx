@@ -11,7 +11,9 @@ import { KidsOverview } from "../Components/kids/KidsOverview";
 import LoginPage from "../Components/Login";
 import RegistrationPage from "../Components/Registration";
 import { ProfilePage } from "../Components/Myprofile";
+import { useSelector } from "react-redux";
 export const AllRoutes = () => {
+  const isAuthenticated = useSelector((store) => store.isAuthenticated);
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
@@ -23,8 +25,14 @@ export const AllRoutes = () => {
       <Route path="/kids" element={<KidsOverview />} />
       <Route path="/Men/shoe" element={<MenShoe />} />
       <Route path="/Singleprod/:id" element={<SingleProd />} />
-      <Route path="/cart" element={<CartPage />} />
-      <Route path="/fav" element={<FavouratePage />} />
+      <Route
+        path="/cart"
+        element={isAuthenticated ? <CartPage /> : <RegistrationPage />}
+      />
+      <Route
+        path="/fav"
+        element={isAuthenticated ? <FavouratePage /> : <RegistrationPage />}
+      />
     </Routes>
   );
 };

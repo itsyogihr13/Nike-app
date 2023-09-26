@@ -7,9 +7,11 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { mapData } from "../MensSection.jsx/CarouselData";
 import kidfasion from "./menfasion.mp4";
 import { Footer } from "../Header/Footer";
+import { Loading } from "../Loading";
 export const KidsOverview = () => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
   function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -37,11 +39,12 @@ export const KidsOverview = () => {
   }
   return (
     <>
-      <Header setSearch={setSearch} />
+      {loading && <Loading />}
+      {!loading && <Header setSearch={setSearch} />}
       <div className="px-6">
         <div
           className={` ${
-            search.length > 3 ? "" : "sticky top-[0px]"
+            search.length > 3 && loading ? "sticky top-[0px]" : ""
           }  w-full bg-[#fff]`}
         >
           <div className="flex w-[60%] justify-between ">
@@ -82,7 +85,14 @@ export const KidsOverview = () => {
             </div>
           </div>
         </div>
-        <video src={kidfasion} width="1800" height="500" autoPlay muted></video>
+        <video
+          src={kidfasion}
+          width="1800"
+          height="500"
+          autoPlay
+          muted
+          onLoadedData={() => setLoading(false)}
+        ></video>
         <div className="text-center w-[80%]  m-auto pt-[2rem]">
           <p className="font-black text-[65px] tracking-[1px] mt-3 leading-[4.5rem] ">
             INTRODUCING <br /> AIR MAX 270 GO

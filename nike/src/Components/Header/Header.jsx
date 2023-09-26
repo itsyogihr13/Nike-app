@@ -14,7 +14,6 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { logoutUser } from "../../redux/Action";
 export const Header = ({ setSearch }) => {
   const [open, setOpen] = useState(false);
-  const [cartopen, setCartopen] = useState(false);
   const registerData = useSelector((store) => store.user);
   const store = useSelector((store) => store);
   const [name, setName] = useState(false);

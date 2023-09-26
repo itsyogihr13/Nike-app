@@ -10,13 +10,15 @@ import { Link } from "react-router-dom";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Footer } from "../Header/Footer";
-
+import { Loading } from "../Loading";
 export const MenShoe = () => {
   const [data, setData] = useState();
   const [hide, setHide] = useState(false);
   const [sort, setSort] = useState("New");
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+
   const [categoryVal, setCategoryVal] = useState("Men");
   const handleChange = (e) => {
     if (e.target.value === "Low") {
@@ -40,7 +42,6 @@ export const MenShoe = () => {
   const handleOpen = () => {
     setOpen(true);
   };
-  let api = "https://easy-rose-python-vest.cyclic.app/api";
   const handleSortbyCategory = (e) => {
     setCategoryVal(e.target.value);
     axios
@@ -77,14 +78,20 @@ export const MenShoe = () => {
       .then((res) => setData(res.data));
   }, []);
 
+  useEffect(() => {
+    if (data) {
+      setLoading(false);
+    }
+  }, [data]);
   return (
     <>
-      <Header setSearch={setSearch} />
+      {loading && <Loading />}
+      {!loading && <Header setSearch={setSearch} />}
       <div className="px-6">
         <div
-          className={`${
-            search.length > 3 ? "" : "sticky top-[0px]"
-          } w-full bg-[#fff] flex justify-between items-center`}
+          className={`w-full bg-[#fff] flex justify-between items-center ${
+            search.length > 3 && loading ? "sticky top-[0px]" : ""
+          }`}
         >
           <h1 className="text-[30px] font-medium text-left mt-4 mb-3">
             {categoryVal.charAt(0).toUpperCase() + categoryVal.slice(1)}{" "}

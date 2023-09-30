@@ -36,7 +36,7 @@ export const CartPage = () => {
   const handlePayment = async () => {
     const options = {
       key: "rzp_test_N7JAloi8EO00qI",
-      amount: totalPrice * 100 + diliveryCharges,
+      amount: totalPrice * 100 + diliveryCharges * 100,
       currency: "INR",
       name,
       description: "Payment for your service",

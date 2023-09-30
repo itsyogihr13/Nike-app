@@ -17,6 +17,9 @@ The world's largest athletic apparel company, Nike is best known for its footwea
 5. Tailwind css
 6. ReactJS
 7. React-Redux
+8. Razaypay
+9. React-multi-carousel
+10. Material UI
 
 <!-- 
 ## Instructions to Run the Code 
